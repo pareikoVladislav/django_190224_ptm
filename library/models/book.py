@@ -22,6 +22,7 @@ class Book(models.Model):
     summary = models.TextField(null=True, blank=True)
     genre = models.CharField(max_length=50, null=True, choices=GENRE_CHOICES)
     page_count = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(10000)])
+    created_at = models.DateTimeField(null=True, blank=True)
 
     @property
     def rating(self):
