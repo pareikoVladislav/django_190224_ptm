@@ -23,6 +23,9 @@ class Book(models.Model):
     genre = models.CharField(max_length=50, null=True, choices=GENRE_CHOICES)
     page_count = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(10000)])
     created_at = models.DateTimeField(null=True, blank=True)
+    is_bestseller = models.BooleanField(default=False)
+    price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    discount_price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
 
     @property
     def rating(self):
@@ -39,3 +42,18 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+
+books = [
+    Book(title='INFERNO', published_date='2009-07-25', genre='Fantasy', is_bestseller=True),
+    Book(title='Da-Vinci Code', published_date='2011-05-30', genre='Fantasy', is_bestseller=True),
+    Book(title='Test Book', published_date='2015-11-25'),
+    Book(title='One mode book', published_date='2018-12-13', summary='TEST SUMMARY DESCRIPTION'),
+]
+
+books = Book.objects.all()
+
+for book in books:
+    book.price = Decimal('99.99')
+
+Book.objects.bulk_update(books, ['price'])
