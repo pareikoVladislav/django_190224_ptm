@@ -49,8 +49,8 @@ class BookSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def to_representation(self, instance):
-        # Использование параметра include_related из контекста
         representation = super().to_representation(instance)
+
         if self.context.get('include_related'):
             representation['genres'] = [genre.name for genre in instance.genres.all()]
         else:

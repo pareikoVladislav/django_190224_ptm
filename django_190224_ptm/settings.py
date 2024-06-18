@@ -128,6 +128,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'library.pagination.CustomCursorPagination',
+    'PAGE_SIZE': 2,  # Размер страницы по умолчанию
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
