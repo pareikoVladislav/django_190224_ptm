@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils import timezone
+
+from library.managers import SoftDeleteManager
 
 
 class Publisher(models.Model):
@@ -27,9 +30,19 @@ class Book(models.Model):
     is_bestseller = models.BooleanField(default=False)
     genres = models.ManyToManyField(Genre, related_name='books')
     is_banned = models.BooleanField(default=False)
+    deleted = models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+
+    objects = SoftDeleteManager()
 
     def __str__(self):
         return f"{self.title} by {self.author}"
+
+    def delete(self, *args, **kwargs):
+        self.deleted = True
+        self.deleted_at = timezone.now()
+
+        self.save()
 
     class Meta:
         db_table = 'library_book'
