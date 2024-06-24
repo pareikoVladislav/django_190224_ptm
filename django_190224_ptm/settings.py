@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
 from environ import Env
 
@@ -48,6 +48,8 @@ INSTALLED_APPS = [
 
     # 3rd-party
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'django_filters',
 
     # local
@@ -62,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'library.middlewares.set_tokens.JWTAuthenticationMiddleware',
 ]
 
 ROOT_URLCONF = 'django_190224_ptm.urls'
@@ -127,6 +130,25 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),  # Время жизни access токена (5 минут)
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # Время жизни refresh токена (1 день)
+    'ROTATE_REFRESH_TOKENS': True,  # Обновлять refresh токен при каждом запросе нового access токена
+    'BLACKLIST_AFTER_ROTATION': True,  # Добавлять старый refresh токен в черный список после обновления
+    'AUTH_HEADER_TYPES': ('JWT',),  # Тип заголовка для аутентификации (JWT)
+}
 
 
 # Internationalization
