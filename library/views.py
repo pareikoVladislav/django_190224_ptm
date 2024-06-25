@@ -1,44 +1,40 @@
-from datetime import datetime
-
 from django.contrib.auth.models import User
+from django.db.models import Count
+from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.authentication import (
-    BasicAuthentication,
-    TokenAuthentication
-)
+from rest_framework import status, viewsets
 from rest_framework.permissions import (
-    IsAuthenticated,
     AllowAny,
-    IsAdminUser,
     IsAuthenticatedOrReadOnly
 )
 from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 
-from library.serializers import UserRegisterSerializer
+from library.models import Genre
+from library.serializers import UserRegisterSerializer, GenreSerializer
 from library.utils.set_jwt import set_jwt_cookies
 
 
-# class ProtectedView(APIView):
-#     authentication_classes = [BasicAuthentication]
-#     permission_classes = [IsAuthenticated]
-#
-#     def get(self, request: Request) -> Response:
-#         return Response(
-#             data={
-#                 "message": "Hello, authentication user!!!",
-#                 "user": request.user.username
-#             },
-#             status=status.HTTP_200_OK
-#         )
+class GenreViewSet(viewsets.ModelViewSet):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+
+    @action(detail=False, methods=['GET'])
+    def statistic(self, request, *args, **kwargs):
+        genres_with_book_counts = Genre.objects.annotate(book_count=Count('books'))
+        data = [
+            {
+                "id": genre.id,
+                "genre": genre.name,
+                "book_count": genre.book_count
+            }
+            for genre in genres_with_book_counts
+        ]
+        return Response(data)
 
 
 class ProtectedView(APIView):
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request: Request) -> Response:
@@ -101,32 +97,12 @@ class LoginUserView(APIView):
         )
 
         if user:
-            refresh = RefreshToken.for_user(user)
-            access_token = refresh.access_token
-
-            access_expiry = datetime.fromtimestamp(access_token['exp'])
-            refresh_expiry = datetime.fromtimestamp(refresh['exp'])
 
             response = Response(
-                status=status.HTTP_200_OK
+                status=status.HTTP_200_OK,
             )
 
-            response.set_cookie(
-                key='access_token',
-                value=str(access_token),
-                httponly=True,
-                secure=False,
-                samesite='Lax',
-                expires=access_expiry
-            )
-            response.set_cookie(
-                key='refresh_token',
-                value=str(refresh),
-                httponly=True,
-                secure=False,
-                samesite='Lax',
-                expires=refresh_expiry
-            )
+            set_jwt_cookies(response, user)
 
             return response
 

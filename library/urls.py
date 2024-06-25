@@ -1,24 +1,22 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import SimpleRouter
 
 from library.views import (
     ProtectedView,
     LoginUserView,
     LogoutUserView,
-    RegisterUserView
-)
-from rest_framework.authtoken.views import obtain_auth_token
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView
+    RegisterUserView,
+    GenreViewSet
 )
 
+genres_router = SimpleRouter()
+
+genres_router.register(r'', GenreViewSet, basename='genres')
 
 urlpatterns = [
     path('protected/', ProtectedView.as_view()),
     path('user-register/', RegisterUserView.as_view()),
     path('user-login/', LoginUserView.as_view()),
     path('user-logout/', LogoutUserView.as_view()),
-    # path('auth-token/', obtain_auth_token),
-    # path('jwt-auth/', TokenObtainPairView.as_view()),
-    # path('jwt-refresh/', TokenRefreshView.as_view()),
+    path('genres/', include(genres_router.urls)),
 ]

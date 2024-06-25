@@ -49,15 +49,6 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = '__all__'
 
-    def to_representation(self, instance):
-        # Использование параметра include_related из контекста
-        representation = super().to_representation(instance)
-        if self.context.get('include_related'):
-            representation['genres'] = [genre.name for genre in instance.genres.all()]
-        else:
-            representation.pop('genres', None)
-        return representation
-
 
 class BookCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -79,10 +70,14 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         fields = ('username', 'password', 'email')
 
     def create(self, validated_data):
-        user = User.objects.create(
+        user = User(
             username=validated_data['username'],
             password=validated_data['password'],
             email=validated_data['email']
         )
+
+        user.set_password(validated_data['password'])
+
+        user.save()
 
         return user
