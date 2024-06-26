@@ -1,0 +1,118 @@
+[
+{
+    "model": "library.publisher",
+    "pk": 1,
+    "fields": {
+        "name": "St. Louis Library Department",
+        "established_date": "2024-06-26"
+    }
+},
+{
+    "model": "library.publisher",
+    "pk": 2,
+    "fields": {
+        "name": "St. Mark Library Department",
+        "established_date": "2012-06-13"
+    }
+},
+{
+    "model": "library.publisher",
+    "pk": 3,
+    "fields": {
+        "name": "NY Central Park Library Department",
+        "established_date": "2006-11-22"
+    }
+},
+{
+    "model": "library.genre",
+    "pk": 1,
+    "fields": {
+        "name": "Mystic"
+    }
+},
+{
+    "model": "library.genre",
+    "pk": 2,
+    "fields": {
+        "name": "Horror"
+    }
+},
+{
+    "model": "library.genre",
+    "pk": 3,
+    "fields": {
+        "name": "Drama"
+    }
+},
+{
+    "model": "library.genre",
+    "pk": 4,
+    "fields": {
+        "name": "Sci-Fi"
+    }
+},
+{
+    "model": "library.genre",
+    "pk": 5,
+    "fields": {
+        "name": "Science"
+    }
+},
+{
+    "model": "library.genre",
+    "pk": 6,
+    "fields": {
+        "name": "Fantasy"
+    }
+},
+{
+    "model": "library.genre",
+    "pk": 7,
+    "fields": {
+        "name": "Thriller"
+    }
+},
+{
+    "model": "library.book",
+    "pk": 1,
+    "fields": {
+        "title": "Updated Book FROM ADMIN 222",
+        "author": "Sapkovsky A.",
+        "published_date": "2024-06-26",
+        "publisher": 3,
+        "created_at": null,
+        "price": "25.37",
+        "discounted_price": "10.99",
+        "is_bestseller": false,
+        "is_banned": false,
+        "owner": [
+            "test_admin"
+        ],
+        "genres": [
+            4
+        ]
+    }
+},
+{
+    "model": "library.book",
+    "pk": 2,
+    "fields": {
+        "title": "TEST BOOK FROM NON ADMIN 2",
+        "author": "C. Saimak",
+        "published_date": "2022-06-11",
+        "publisher": 1,
+        "created_at": null,
+        "price": "10.55",
+        "discounted_price": "9.99",
+        "is_bestseller": false,
+        "is_banned": false,
+        "owner": [
+            "test_admin"
+        ],
+        "genres": [
+            1,
+            2
+        ]
+    }
+}
+]

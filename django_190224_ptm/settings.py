@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # 3rd-party
     'rest_framework',
     'rest_framework_simplejwt',
+    'drf_yasg',
 
     # local
     'library.apps.LibraryConfig',
@@ -85,6 +86,19 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'django_190224_ptm.wsgi.application'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# ------------------------------------
+# FOR SMTP
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smpt.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'some.email@gmail.com'
+# EMAIL_HOST_PASSWORD = '<PASSWORD>'
 
 
 # Database

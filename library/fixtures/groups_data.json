@@ -1,0 +1,61 @@
+[
+{
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+        "name": "Project Manager",
+        "permissions": [
+            [
+                "add_user",
+                "auth",
+                "user"
+            ],
+            [
+                "view_user",
+                "auth",
+                "user"
+            ],
+            [
+                "view_book",
+                "library",
+                "book"
+            ],
+            [
+                "add_genre",
+                "library",
+                "genre"
+            ],
+            [
+                "can_get_statistic",
+                "library",
+                "genre"
+            ],
+            [
+                "change_genre",
+                "library",
+                "genre"
+            ],
+            [
+                "view_genre",
+                "library",
+                "genre"
+            ],
+            [
+                "add_publisher",
+                "library",
+                "publisher"
+            ],
+            [
+                "change_publisher",
+                "library",
+                "publisher"
+            ],
+            [
+                "view_publisher",
+                "library",
+                "publisher"
+            ]
+        ]
+    }
+}
+]

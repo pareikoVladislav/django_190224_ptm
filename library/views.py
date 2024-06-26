@@ -1,26 +1,53 @@
 from django.contrib.auth.models import User
 from django.db.models import Count
-from rest_framework.decorators import action
+from rest_framework.decorators import action, permission_classes
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 from rest_framework.permissions import (
     AllowAny,
-    IsAuthenticatedOrReadOnly
+    IsAuthenticatedOrReadOnly,
+    DjangoModelPermissions
 )
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate
 
-from library.models import Genre
-from library.serializers import UserRegisterSerializer, GenreSerializer
+from library.models import Genre, Book
+from library.permissions.book_permissions import IsOwnerOrReadOnly
+from library.permissions.genre_permissions import CanGetStatisticPermission
+from library.serializers import (
+    UserRegisterSerializer,
+    GenreSerializer,
+    BookSerializer
+)
 from library.utils.set_jwt import set_jwt_cookies
+
+
+class BookDetailUpdateDeleteView(RetrieveUpdateDestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
+
+class BookListCreateView(viewsets.ModelViewSet):
+    # queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    def get_queryset(self):
+        return Book.objects.filter(owner=self.request.user)
 
 
 class GenreViewSet(viewsets.ModelViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
+    permission_classes = [DjangoModelPermissions]
 
     @action(detail=False, methods=['GET'])
+    # @permission_classes(CanGetStatisticPermission)
     def statistic(self, request, *args, **kwargs):
         genres_with_book_counts = Genre.objects.annotate(book_count=Count('books'))
         data = [

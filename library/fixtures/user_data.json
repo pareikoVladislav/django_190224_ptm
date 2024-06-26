@@ -1,0 +1,249 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$7zpVuIRQ2nIpnDIFEGpBLV$IY5d3CBcNsp/tYydTZRf/h7Epu6JS6m2tg3WUDORJRc=",
+        "last_login": "2024-06-26T08:04:03Z",
+        "is_superuser": true,
+        "username": "vladislav",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-06-26T07:36:14Z",
+        "groups": [],
+        "user_permissions": [
+            [
+                "add_logentry",
+                "admin",
+                "logentry"
+            ],
+            [
+                "change_logentry",
+                "admin",
+                "logentry"
+            ],
+            [
+                "delete_logentry",
+                "admin",
+                "logentry"
+            ],
+            [
+                "view_logentry",
+                "admin",
+                "logentry"
+            ],
+            [
+                "add_group",
+                "auth",
+                "group"
+            ],
+            [
+                "change_group",
+                "auth",
+                "group"
+            ],
+            [
+                "delete_group",
+                "auth",
+                "group"
+            ],
+            [
+                "view_group",
+                "auth",
+                "group"
+            ],
+            [
+                "add_permission",
+                "auth",
+                "permission"
+            ],
+            [
+                "change_permission",
+                "auth",
+                "permission"
+            ],
+            [
+                "delete_permission",
+                "auth",
+                "permission"
+            ],
+            [
+                "view_permission",
+                "auth",
+                "permission"
+            ],
+            [
+                "add_user",
+                "auth",
+                "user"
+            ],
+            [
+                "change_user",
+                "auth",
+                "user"
+            ],
+            [
+                "delete_user",
+                "auth",
+                "user"
+            ],
+            [
+                "view_user",
+                "auth",
+                "user"
+            ],
+            [
+                "add_contenttype",
+                "contenttypes",
+                "contenttype"
+            ],
+            [
+                "change_contenttype",
+                "contenttypes",
+                "contenttype"
+            ],
+            [
+                "delete_contenttype",
+                "contenttypes",
+                "contenttype"
+            ],
+            [
+                "view_contenttype",
+                "contenttypes",
+                "contenttype"
+            ],
+            [
+                "add_book",
+                "library",
+                "book"
+            ],
+            [
+                "change_book",
+                "library",
+                "book"
+            ],
+            [
+                "delete_book",
+                "library",
+                "book"
+            ],
+            [
+                "view_book",
+                "library",
+                "book"
+            ],
+            [
+                "add_genre",
+                "library",
+                "genre"
+            ],
+            [
+                "can_get_statistic",
+                "library",
+                "genre"
+            ],
+            [
+                "change_genre",
+                "library",
+                "genre"
+            ],
+            [
+                "delete_genre",
+                "library",
+                "genre"
+            ],
+            [
+                "view_genre",
+                "library",
+                "genre"
+            ],
+            [
+                "add_publisher",
+                "library",
+                "publisher"
+            ],
+            [
+                "change_publisher",
+                "library",
+                "publisher"
+            ],
+            [
+                "delete_publisher",
+                "library",
+                "publisher"
+            ],
+            [
+                "view_publisher",
+                "library",
+                "publisher"
+            ],
+            [
+                "add_session",
+                "sessions",
+                "session"
+            ],
+            [
+                "change_session",
+                "sessions",
+                "session"
+            ],
+            [
+                "delete_session",
+                "sessions",
+                "session"
+            ],
+            [
+                "view_session",
+                "sessions",
+                "session"
+            ]
+        ]
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$m9gkP5FvFiMlvrQhlZB8hR$9L6DAvnFpVIWd10aSsCF/G9ZKZ0B0lcgB4gLSz0hguQ=",
+        "last_login": "2024-06-26T08:02:53Z",
+        "is_superuser": false,
+        "username": "test_admin",
+        "first_name": "Test",
+        "last_name": "Admin",
+        "email": "admin.testemail@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-06-26T07:38:53Z",
+        "groups": [
+            [
+                "Project Manager"
+            ]
+        ],
+        "user_permissions": [
+            [
+                "add_genre",
+                "library",
+                "genre"
+            ],
+            [
+                "change_genre",
+                "library",
+                "genre"
+            ],
+            [
+                "delete_genre",
+                "library",
+                "genre"
+            ],
+            [
+                "view_genre",
+                "library",
+                "genre"
+            ]
+        ]
+    }
+}
+]
